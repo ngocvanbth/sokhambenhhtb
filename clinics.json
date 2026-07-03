@@ -1,0 +1,16 @@
+[
+  { "name": "Phòng khám Đông Y 1", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Đông Y 2", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội 1", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội 2", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội 3", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội 4", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội 5", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nội tổng hợp", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nhi 1", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Nhi 2", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Tai Mũi Họng", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Mắt", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Sản khoa", "limit": 100, "issued": 0 },
+  { "name": "Phòng khám Ngoại tổng hợp", "limit": 100, "issued": 0 }
+]

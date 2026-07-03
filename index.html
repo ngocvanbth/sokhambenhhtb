@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>HỆ THỐNG LẤY SỐ KHÁM BỆNH</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20250622">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png?v=20250622">
+  <link rel="apple-touch-icon" href="favicon-192.png?v=20250622">
+  <meta name="theme-color" content="#0b5ed7">
+  <link rel="stylesheet" href="styles.css?v=20260703-bg-no-active-note">
+  <!-- Quill CSS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <div id="feature-update-banner" class="app-update-banner no-print" role="status" aria-label="Thông báo cập nhật phần mềm">
+    <div class="app-update-marquee">
+      <span>Thông báo: Cập nhật phiên bản mới</span>
+    </div>
+  </div>
+
+  <header class="app-top-title no-print">
+    <div class="app-top-kicker">TRUNG TÂM Y TẾ KHU VỰC HÀM THUẬN BẮC</div>
+    <div class="app-top-main">HỆ THỐNG LẤY SỐ KHÁM BỆNH</div>
+  </header>
+
+  <div class="login-box">
+    <h1>HỆ THỐNG LẤY SỐ KHÁM BỆNH</h1>
+    <h2><i class="fas fa-sign-in-alt"></i> Đăng nhập</h2>
+    
+    <div class="login-field">
+      <label><i class="fas fa-user"></i> ID:</label>
+      <input type="text" id="username" placeholder="Nhập ID...">
+    </div>
+    
+    <div class="login-field">
+      <label><i class="fas fa-lock"></i> Mật khẩu:</label>
+      <input type="password" id="password" placeholder="Nhập mật khẩu...">
+    </div>
+    
+    <button onclick="login()">🔐 Đăng nhập</button>
+  </div>
+
+<!-- Phát số -->
+<div id="phatso-container" class="container" style="display: none;">
+  <h2 class="section-title">
+    <i class="fas fa-clipboard-list"></i>
+    Phát số khám bệnh
+  </h2>
+  <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Phòng khám</th>
+        <th>Đã cấp</th>
+        <th>Còn lại</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody id="phatso-list"></tbody>
+  </table>
+</div>
+
+<!-- Phòng khám -->
+<div id="phongkham-container" class="container clinic-container" style="display: none;">
+  <h2 id="main-heading" class="clinic-setup-heading">
+    VUI LÒNG THIẾT LẬP PHÒNG KHÁM!
+  </h2>
+
+  <!-- Hiển thị tên phòng khám -->
+  <div class="clinic-title-wrap">
+    <h3 id="clinic-name-display" class="clinic-header" style="display: none;">
+      <span id="clinic-name-text"></span>
+    </h3>
+  </div>
+
+  <!-- Khối chọn phòng khám -->
+  <div id="clinic-select-container" class="clinic-select-card">
+    <div class="clinic-select-title">Chọn phòng khám làm việc</div>
+    <div class="clinic-select-row">
+      <select id="clinic-select">
+        <option value="">-- Chọn phòng khám --</option>
+      </select>
+      <button onclick="confirmClinic()" class="clinic-ok-btn">✅ Xác nhận</button>
+    </div>
+  </div>
+
+  <!-- Giao diện chính -->
+  <div id="phongkham-action" class="clinic-dashboard" style="display: none;">
+    <div class="clinic-call-panel">
+      <div class="call-panel-label">KHU VỰC GỌI SỐ KHÁM BỆNH</div>
+      <button onclick="callNextNumbers(1)" class="next-btn">📢 Gọi số tiếp theo</button>
+      <div class="call-panel-note">Bấm một lần để gọi số kế tiếp theo thứ tự đã cấp</div>
+    </div>
+
+    <div id="phongkham-stats" class="phongkham-stats-box" style="display: none;">
+      <div class="stat-box stat-issued">
+        <div class="stat-icon">📋</div>
+        <div class="stat-label">Đã cấp</div>
+        <div id="total-issued" class="stat-value">0</div>
+      </div>
+      <div class="stat-box stat-called">
+        <div class="stat-icon">🔊</div>
+        <div class="stat-label">Vừa gọi</div>
+        <div id="last-called" class="stat-value">-</div>
+      </div>
+      <div class="stat-box stat-remaining">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-label">Còn lại</div>
+        <div id="remaining" class="stat-value">0</div>
+      </div>
+    </div>
+
+    <div id="called-section" class="called-section" style="display: none;">
+      <label for="called-select">Chọn lại số đã gọi để gọi lại</label>
+      <select id="called-select">
+        <option value="">-- Chọn số đã gọi --</option>
+      </select>
+    </div>
+
+    <div class="clinic-action-footer">
+      <div id="top-right-buttons" style="display: none; gap: 10px;">
+        <button onclick="switchClinic()" class="switch-clinic-btn">🔄 Đổi phòng khám</button>
+        <button onclick="logout()" class="clinic-logout-btn">🚪 Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin -->
+<div id="admin-container" class="container admin-shell" style="display: none;">
+  <main class="admin-main">
+    <header class="admin-topbar no-print">
+      <div class="admin-screen-title" aria-label="Tên màn hình quản trị">
+        <i class="fas fa-sliders-h"></i>
+        <div>
+          <strong>QUẢN TRỊ HỆ THỐNG</strong>
+          <span>Quản lý phòng khám, giới hạn lượt khám và nội dung phiếu in</span>
+        </div>
+      </div>
+      <div class="admin-topbar-right">
+        <div class="admin-time" aria-label="Thời gian hệ thống">
+          <strong id="admin-current-time">--:--</strong>
+          <span id="admin-current-date">--/--/----</span>
+        </div>
+        <button type="button" class="admin-logout-btn" onclick="logout()">
+          <i class="fas fa-right-from-bracket"></i> Đăng xuất
+        </button>
+      </div>
+    </header>
+
+    <section class="admin-panel admin-clinic-panel">
+      <div class="admin-panel-head">
+        <div>
+          <h3><i class="fas fa-hospital-user"></i> Quản lý phòng khám</h3>
+          <p>Cập nhật tên phòng, giới hạn lượt khám và theo dõi số đã cấp.</p>
+        </div>
+        <div class="admin-panel-actions no-print">
+          <button type="button" class="admin-save-btn" onclick="saveChanges()">
+            <i class="fas fa-floppy-disk"></i> Lưu thay đổi
+          </button>
+          <button type="button" class="admin-reset-btn" onclick="resetIssued()">
+            <i class="fas fa-rotate-right"></i> Reset về 100 số
+          </button>
+        </div>
+      </div>
+
+      <div id="admin-clinic-card-grid" class="admin-clinic-card-grid" aria-label="Danh sách phòng khám dạng ô"></div>
+    </section>
+
+    <section id="highlight-editor" class="admin-panel admin-highlight-panel">
+      <div class="admin-panel-head">
+        <div>
+          <h3><i class="fas fa-pen-to-square"></i> Chỉnh sửa dịch vụ nổi bật</h3>
+          <p>Nội dung này hiển thị ở phần bên phải của phiếu in số khám bệnh.</p>
+        </div>
+        <button type="button" onclick="saveHighlight()" class="admin-save-btn no-print">
+          <i class="fas fa-floppy-disk"></i> Lưu nội dung
+        </button>
+      </div>
+      <div id="editor" style="height: 220px;"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Khu vực in vé -->
+<div id="print-area" style="display: none;">
+  <div class="ticket-wrapper">
+    <!-- Cột bên trái: Thông tin khám bệnh (30%) -->
+    <div class="ticket-left">
+    <img src="logott.png" class="watermark-front" alt="Logo">
+    <h3 id="clinicNamePrint" class="clinic-title">Tên phòng khám</h3>
+    <p id="ticketTypePrint" class="ticket-type">SỐ THỨ TỰ</p>
+    <h1 id="ticketNumberPrint">00</h1>
+    <p id="timePrint" class="print-time">Ngày tháng năm</p>
+    <p id="waitingMessage" style="margin-top: 10px; font-size: 10pt; font-style: italic;">
+    Xin vui lòng chờ đến lượt khám bệnh!
+   </p>
+    </div>
+
+    <!-- Cột bên phải: Dịch vụ nổi bật (70%) -->
+    <div class="ticket-right">
+      <h3 style="margin-top: 0;">Dịch vụ nổi bật</h3>
+      <div id="highlight-service"></div>
+    </div>
+  </div>
+</div>
+
+<footer id="app-copyright" class="app-copyright no-print">
+  Bản quyền © 2025 - Designed &amp; Coded by Đặng Ngọc Văn
+</footer>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="script.js?v=20260703-bg-no-active-note"></script>
+
+<!-- Quill JS -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script>
+  const quill = new Quill('#editor', { theme: 'snow' });
+
+  function saveHighlight() {
+    const content = quill.root.innerHTML.trim();
+    if (!content) {
+      alert("Nội dung không được để trống!");
+      return;
+    }
+
+    // ✅ Lưu vào localStorage
+    localStorage.setItem("highlightHTML", content);
+
+    // ✅ Lưu lên Firebase
+    firebase.database().ref("highlightHTML").set(content)
+      .then(() => alert("Đã lưu nội dung dịch vụ nổi bật!"))
+      .catch(err => alert("Lỗi khi lưu Firebase: " + err.message));
+  }
+
+  function renderHighlightEditor() {
+    // ✅ Ưu tiên lấy từ Firebase
+    firebase.database().ref("highlightHTML").once("value").then(snapshot => {
+      const content = snapshot.val();
+      if (content) {
+        quill.root.innerHTML = content;
+        localStorage.setItem("highlightHTML", content);
+      }
+    });
+  }
+
+  window.addEventListener("load", renderHighlightEditor);
+</script>
+<div id="popup-update" class="hidden fixed bottom-5 right-5 bg-yellow-100 text-yellow-900 border border-yellow-500 rounded-lg p-4 shadow-lg z-50 max-w-xs w-full">
+  <div id="popup-message" class="mb-2">⚠️ Đang tải...</div>
+  <button onclick="hidePopupUpdate()" class="px-3 py-1 bg-yellow-400 hover:bg-yellow-300 text-sm font-semibold rounded">
+    OK
+  </button>
+</div>
+</body>
+</html>

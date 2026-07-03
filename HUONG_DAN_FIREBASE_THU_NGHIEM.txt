@@ -1,0 +1,37 @@
+# Cấu hình Firebase thử nghiệm cho hệ thống lấy số khám bệnh
+
+File này đã được cấu hình sang Firebase project mới: `sokhambenhhtb`.
+
+## 1. Realtime Database
+App đang dùng Firebase SDK v8 và Realtime Database. Cấu hình hiện tại trong `script.js`:
+
+```js
+databaseURL: "https://sokhambenhhtb-default-rtdb.asia-southeast1.firebasedatabase.app/"
+```
+
+Nếu khi tạo Realtime Database ông chọn vùng khác Singapore/asia-southeast1, vào Firebase Console > Realtime Database, copy đúng URL database và thay lại dòng `databaseURL` trong `script.js`.
+
+Có sẵn file `firebase_seed_sokhambenhhtb.json` để import dữ liệu ban đầu vào Realtime Database.
+
+## 2. Authentication
+Bật Email/Password trong Firebase Authentication, sau đó tạo các user sau:
+
+- `admin@sokhambenh.vercel.app`
+- `phatso@sokhambenh.vercel.app`
+- `phongkham@sokhambenh.vercel.app`
+- `display@sokhambenh.vercel.app`
+
+Mật khẩu tùy ông đặt. Khi đăng nhập trong web, ô ID chỉ nhập phần trước dấu @, ví dụ: `phatso`.
+
+## 3. Phân quyền
+Trong file seed đã có sẵn nhánh `userRoles`:
+
+- admin => admin
+- phatso => phatso
+- phongkham => phongkham
+- display => display
+
+Nếu không import seed, phải tự tạo các key này trong Realtime Database, do app lấy quyền đăng nhập từ nhánh `userRoles`.
+
+## 4. Lưu ý
+Bản này chỉ đổi cấu hình Firebase sang project thử nghiệm và giữ nguyên giao diện tài khoản phát số đã chốt. Các chức năng khác không bị chỉnh lại.

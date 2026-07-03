@@ -1,0 +1,4017 @@
+/* Toàn bộ giao diện */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e3f2fd;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Bảng danh sách */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+th, td {
+  padding: 4px 8px; /* giảm padding top/bottom */
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  vertical-align: middle; /* căn giữa theo chiều dọc */
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+td:nth-child(3) {
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Nút */
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  margin: 3px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.logout-btn {
+  float: right;
+  background-color: #dc3545;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}
+
+/* Popup cấp số */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px 50px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.bold-number {
+  font-size: 36px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Khu vực in vé */
+#print-area {
+  display: none !important;
+}
+
+/* Watermark logo mặt trước */
+.watermark-front {
+  width: 50%;
+  opacity: 1;
+}
+
+/* Watermark logo mặt sau */
+.watermark-back {
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  width: 60%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  z-index: 1;
+}
+
+/* Xử lý phân trang in */
+
+/* Tiêu đề trung tâm */
+.title-area {
+  margin-bottom: 20px;
+}
+
+.main-title {
+  font-size: 28pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: Arial, Tahoma, sans-serif;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* In A5 Landscape */
+@media print {
+  body {
+    width: 210mm;
+    height: 148mm;
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-family: Arial, sans-serif;
+    font-size: 16pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #print-area {
+    display: block !important;
+    width: 190mm;
+    height: 125mm; /* Giảm xuống để đảm bảo không tràn */
+    padding: 5mm;
+    margin: auto;
+    box-sizing: border-box;
+    background: white;
+    text-align: center;
+    position: relative;
+    border: 2px dashed black;
+    border-radius: 8px;
+  }
+
+  .ticket-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .ticket-left {
+    width: 30%;
+    text-align: center;
+    border-right: 1px dashed #ccc;
+    padding: 10px;
+  }
+
+  .ticket-right {
+    width: 70%;
+    padding: 10px 20px;
+    text-align: left;
+  }
+
+  .watermark-back,
+  .back {
+    display: none !important;
+  }
+
+  .no-print,
+  #login-container,
+  #phatso-container,
+  #admin-container,
+  #phongkham-container {
+    display: none !important;
+  }
+
+  @page {
+    size: A5 landscape;
+    margin: 0;
+  }
+  #ticketNumberPrint {
+    font-size: 78px;
+    font-weight: bold;
+    color: #000000;
+    margin: 20px 0 10px;
+  }
+
+  #clinicNamePrint {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+}
+
+
+.next-btn {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.switch-clinic-btn {
+  background-color: #6c757d;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+.clinic-header {
+  background-color: #f5f5f5;
+  padding: 10px 20px;
+  border-left: 6px solid #007bff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;        
+  margin: 0 auto 24px auto;  
+  width: fit-content;        
+}
+
+.phongkham-stats-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.stat-box {
+  background-color: #f0f8ff;
+  border: 1px solid #cce5ff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  min-width: 100px;
+}
+
+.stat-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 5px;
+}
+.icon-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.icon-btn {
+  background-color: #f87171;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Tên phòng khám trong bảng */
+.admin-input-text {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.admin-input-number {
+  width: 80px;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Giảm chiều cao dòng */
+#admin-clinic-list tbody tr {
+  height: auto;
+  line-height: 1.4;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+
+/* Màu nền xen kẽ */
+#admin-clinic-list tbody tr:nth-child(even) {
+  background-color: #f0f8ff; /* xanh nhạt */
+}
+
+#admin-clinic-list tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* trắng */
+}
+
+/* Hiệu ứng hover cho đẹp */
+#admin-clinic-list tbody tr:hover {
+  background-color: #e0f0ff;
+}
+/* ========================
+   TỐI ƯU BẢNG GIAO DIỆN MỚI
+======================== */
+
+/* Chiều cao hàng gọn nhẹ */
+table tr {
+  line-height: 1.2;
+  height: 36px;
+}
+
+/* Phông chữ và căn giữa cho bảng */
+table th, table td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Màu nền xen kẽ */
+table tbody tr:nth-child(odd) {
+  background-color: #f8f9fa; /* xám nhạt */
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #e9f5ff; /* xanh nhạt */
+}
+
+/* Hover nổi bật rõ */
+table tbody tr:hover {
+  background-color: #d0ebff !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Viền dưới rõ ràng */
+table td {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Căn chỉnh ô đầu vào cho bảng admin */
+table input[type="text"],
+table input[type="number"] {
+  font-size: 14px;
+  padding: 4px 6px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+/* In đậm tên phòng khám ở bảng */
+.clinic-name-bold {
+  font-weight: bold;
+  color: #343a40; /* xám đậm */
+}
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1976d2; /* Xanh công sở */
+  margin: 30px 0 20px;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #1976d2;
+  margin: 10px auto 0;
+  border-radius: 2px;
+  animation: growBar 0.8s ease-in-out;
+}
+
+@keyframes growBar {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 60px;
+    opacity: 1;
+  }
+}
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0d47a1;
+  text-align: center;
+  margin: 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #1976d2;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+.login-box {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-box h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.login-box h2 {
+  font-size: 18px;
+  color: #007BFF;
+  margin-bottom: 20px;
+}
+
+.login-field {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.login-field label {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+}
+
+.login-field input {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-box button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-box button:hover {
+  background: #0056b3;
+}
+.login-box h1 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(90deg, #007bff, #6f42c1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.btn-normal {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-priority {
+  background-color: orange;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.ticket-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.ticket-left {
+  width: 30%;
+  padding: 10px;
+  text-align: center;
+  border-right: 1px dashed #ccc;
+}
+
+.ticket-right {
+  width: 70%;
+  padding: 10px 20px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+#highlight-service {
+  font-size: 14px;
+  line-height: 1.5;
+}
+#popup-update {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 320px;
+  width: 100%;
+  background-color: #fef3c7; /* vàng nhạt */
+  color: #92400e;             /* chữ nâu cam */
+  border: 1px solid #facc15;  /* viền vàng đậm */
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: none; /* ẩn mặc định */
+}
+
+#popup-update.show {
+  display: block;
+}
+
+#popup-update button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #78350f;
+  background-color: #fde68a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#popup-update button:hover {
+  background-color: #fcd34d;
+}
+#called-list {
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  max-width: 260px;
+}
+.called-item {
+  padding: 10px 18px;
+  margin-bottom: 10px;
+  background: #f9fbfd;
+  border: 1.5px solid #e0eaf7;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s, border-color 0.16s, box-shadow 0.16s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: left;
+}
+.called-item:hover {
+  background: #e6f1ff;
+  color: #0056b3;
+  border-color: #007bff;
+  box-shadow: 0 2px 6px rgba(0,123,255,0.13);
+}
+
+/* === BẢNG HIỂN THỊ TIVI (DISPLAY) === */
+/* Nền xanh dành riêng cho chế độ display (TIVI) */
+body {
+  background: #25a4ff;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header + Marquee */
+#header {
+  width: 100vw;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  position: relative;
+  min-height: 54px;
+}
+
+/* ===== MARQUEE CHỮ CHẠY ===== */
+.marquee-container {
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  position: relative;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.marquee-container {
+  padding-left: 64px; /* hoặc 56px tuỳ logo */
+}
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  color: #2500f7;  /* Vàng chanh rực */
+  font-size: 3.6rem;  /* SIZE TO hơn, tuỳ tăng giảm */
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-shadow: 2px 4px 16px #ff910080, 0 1px 0 #000;
+  animation: marqueeMove 15s linear infinite;
+  line-height: 54px;
+}
+
+/* Responsive cho chữ chạy */
+@media (max-width: 900px) {
+  .marquee {
+    font-size: 2rem;
+    line-height: 34px;
+  }
+  .marquee-container {
+    height: 34px;
+  }
+}
+
+@keyframes marqueeMove {
+  0%   { transform: translateX(100vw);}
+  100% { transform: translateX(-100%);}
+}
+
+/* Nút thoát (logout icon) */
+#logout-btn {
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  background: rgba(255,255,255,0.33);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 2em;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.17s;
+}
+#logout-btn:hover {
+  background: #ffdddd;
+}
+
+/* ===== Bảng hiển thị 2 cột ===== */
+.split-tables {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 100vw;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0 30px 40px 30px;
+}
+
+.display-table {
+  flex: 1 1 0px;
+  width: 1px;
+  min-width: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,80,190,0.07);
+  overflow: hidden;
+}
+
+.display-table th,
+.display-table td {
+  padding: 18px 12px;
+  font-size: 1.5rem;
+  text-align: center;
+  border-bottom: 5px solid #25a4ff33;
+  font-family: inherit;
+}
+
+.display-table th {
+  background: #e7f5ff;
+  color: #0096f5;
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #0096f5;
+}
+
+.display-table td.name-cell {
+  width: 70%;
+  text-align: left;
+  padding-left: 34px;
+  font-weight: bold;
+  color: #0080ca;
+  font-size: 2em;
+}
+
+.display-table td.number-cell {
+  width: 30%;
+  font-weight: bold;
+  color: #ff2d2d;
+  font-size: 3.2em;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px #fff9;
+}
+
+.display-table tr:last-child td {
+  border-bottom: none;
+}
+
+.display-table td.name-cell.dangcapnhat,
+.display-table td.number-cell.dangcapnhat {
+  color: #bbb !important;
+  font-style: italic;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+/* Hiệu ứng số nhấp nháy khi gọi */
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  20%, 40%, 60%, 80% { opacity: 0; }
+}
+.flash {
+  animation: flash 1.1s linear 3;
+}
+
+/* Responsive cho TV nhỏ */
+@media (max-width: 1200px) {
+  .split-tables {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .display-table {
+    width: 90vw;
+    margin-bottom: 12px;
+  }
+}
+.ticket-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.watermark-front {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 5px;
+}
+
+.clinic-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px 0 4px 0;
+  text-align: center;
+}
+
+.ticket-type {
+  font-size: 24px;
+  color: #000000;
+  font-weight: bold;
+  margin: 2px 0 2px 0;
+  letter-spacing: 0px;
+}
+
+#print-area h1#ticketNumberPrint {
+  font-size: 70px;
+  margin: 3px 0 6px 0;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 5px;
+}
+
+.print-time {
+  font-size: 15px !important;
+  color: #000000;
+  margin: 2px 0 0 0;
+  text-align: center;
+}
+
+/* === END DISPLAY CSS === */
+
+/* =========================================================
+   UI REFRESH 22/06/2026 - CHỈ LÀM MỚI GIAO DIỆN
+   Không thay đổi logic, Firebase, ID hoặc chức năng hiện có.
+========================================================= */
+:root {
+  --brand-blue: #0b74de;
+  --brand-blue-dark: #0757b8;
+  --brand-blue-soft: #eaf5ff;
+  --surface: rgba(255, 255, 255, 0.96);
+  --text-main: #10233f;
+  --text-muted: #607089;
+  --success: #0f9f58;
+  --warning: #f59e0b;
+  --danger: #dc3545;
+  --shadow-soft: 0 18px 45px rgba(8, 63, 131, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 0 30px !important;
+  color: var(--text-main);
+  font-family: Arial, "Segoe UI", Tahoma, sans-serif !important;
+  text-align: center;
+  background:
+    radial-gradient(circle at top left, rgba(0, 145, 255, 0.20), transparent 34%),
+    linear-gradient(180deg, #f5fbff 0%, #e9f5ff 52%, #dff0ff 100%) !important;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(11, 116, 222, 0.06) 0, rgba(11, 116, 222, 0.00) 18%, rgba(11, 116, 222, 0.00) 82%, rgba(11, 116, 222, 0.06) 100%);
+  z-index: -1;
+}
+
+button,
+select,
+input {
+  font-family: inherit;
+}
+
+button {
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  box-shadow: 0 4px 12px rgba(0, 88, 180, 0.16);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, background 0.14s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 88, 180, 0.22);
+  filter: brightness(1.02);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 88, 180, 0.16);
+}
+
+.app-update-banner {
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #044a9c 0%, #0874dd 45%, #05a8ff 100%);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 16px rgba(0, 60, 140, 0.18);
+  overflow: hidden;
+  position: relative;
+  z-index: 50;
+}
+
+.app-update-marquee {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.app-update-marquee span {
+  display: inline-block;
+  min-width: 100%;
+  padding-left: 100%;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.26);
+  animation: appUpdateMarqueeMove 32s linear infinite;
+}
+
+.app-update-banner:hover .app-update-marquee span {
+  animation-play-state: paused;
+}
+
+@keyframes appUpdateMarqueeMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.app-top-title {
+  max-width: 1180px;
+  margin: 20px auto 0;
+  padding: 0 18px;
+  text-align: center;
+}
+
+.app-top-kicker {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(11, 116, 222, 0.09);
+  color: var(--brand-blue-dark);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+.app-top-main {
+  margin-top: 8px;
+  color: #073c82;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.container,
+.login-box {
+  width: min(92vw, 1120px) !important;
+  background: var(--surface) !important;
+  border: 1px solid rgba(11, 116, 222, 0.12);
+  border-radius: 22px !important;
+  box-shadow: var(--shadow-soft) !important;
+  backdrop-filter: blur(10px);
+}
+
+.container {
+  max-width: 1120px !important;
+  margin: 26px auto 18px !important;
+  padding: 24px !important;
+}
+
+.login-box {
+  max-width: 460px !important;
+  margin: 32px auto 20px !important;
+  padding: 30px !important;
+}
+
+.login-box h1 {
+  font-size: 20px !important;
+  line-height: 1.25;
+}
+
+.login-field input,
+.admin-input-text,
+.admin-input-number,
+#clinic-select,
+#called-select {
+  border: 1px solid rgba(11, 116, 222, 0.22) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(8, 63, 131, 0.06) inset;
+}
+
+.login-field input:focus,
+.admin-input-text:focus,
+.admin-input-number:focus,
+#clinic-select:focus,
+#called-select:focus {
+  border-color: var(--brand-blue) !important;
+  box-shadow: 0 0 0 4px rgba(11, 116, 222, 0.12) !important;
+}
+
+.section-title {
+  margin: 6px 0 18px !important;
+  color: #073c82 !important;
+  font-size: clamp(22px, 2.5vw, 30px) !important;
+}
+
+.logout-btn {
+  float: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  margin: 0 0 16px auto !important;
+  background: linear-gradient(135deg, #ef3b4d, #c51f32) !important;
+}
+
+#phatso-container,
+#admin-container {
+  overflow: hidden;
+}
+
+#phatso-container table,
+#admin-clinic-list {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(8, 63, 131, 0.08);
+  background: #ffffff;
+}
+
+#phatso-container th,
+#admin-clinic-list th {
+  background: linear-gradient(135deg, #0b74de, #0757b8) !important;
+  color: #ffffff !important;
+  padding: 13px 12px !important;
+  font-size: 14px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+#phatso-container td,
+#admin-clinic-list td {
+  padding: 10px 12px !important;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.10) !important;
+  font-size: 15px !important;
+}
+
+#phatso-container tbody tr:nth-child(odd),
+#admin-clinic-list tbody tr:nth-child(odd) {
+  background: #ffffff !important;
+}
+
+#phatso-container tbody tr:nth-child(even),
+#admin-clinic-list tbody tr:nth-child(even) {
+  background: #f3f9ff !important;
+}
+
+#phatso-container tbody tr:hover,
+#admin-clinic-list tbody tr:hover {
+  background: #e7f3ff !important;
+}
+
+#phatso-container td:first-child,
+#admin-clinic-list td:nth-child(2) {
+  font-weight: 800;
+  color: #10233f;
+}
+
+#phatso-container td:nth-child(3) {
+  color: #057a42 !important;
+  font-weight: 900;
+}
+
+#total-issued-count {
+  margin: 10px auto 18px;
+  padding: 14px 18px;
+  max-width: 520px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+  border: 1px solid rgba(11, 116, 222, 0.16);
+  box-shadow: 0 8px 22px rgba(8, 63, 131, 0.08);
+}
+
+#total-issued-count h3 {
+  margin: 0 !important;
+  color: #0757b8 !important;
+  font-size: 20px !important;
+}
+
+.btn-normal,
+.btn-priority {
+  min-width: 86px;
+  padding: 9px 14px !important;
+  border-radius: 10px !important;
+  margin: 3px 4px !important;
+}
+
+.btn-normal {
+  background: linear-gradient(135deg, #1084ff, #086bd2) !important;
+}
+
+.btn-priority {
+  background: linear-gradient(135deg, #ffb020, #f08a00) !important;
+}
+
+/* ===== Giao diện gọi số phòng khám ===== */
+.clinic-container {
+  width: min(92vw, 980px) !important;
+  max-width: 980px !important;
+  min-height: 500px;
+  padding: 26px !important;
+  position: relative;
+}
+
+.clinic-setup-heading {
+  margin: 4px 0 20px !important;
+  color: #073c82 !important;
+  font-size: clamp(22px, 2.7vw, 30px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.clinic-title-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 64px;
+  margin-bottom: 10px;
+}
+
+#clinic-name-display.clinic-header {
+  width: auto !important;
+  max-width: 100%;
+  margin: 0 auto 10px !important;
+  padding: 14px 24px !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, #0757b8, #0b84f3) !important;
+  color: #ffffff !important;
+  font-size: clamp(22px, 3vw, 30px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.2px !important;
+  box-shadow: 0 12px 26px rgba(8, 88, 190, 0.26) !important;
+  text-align: center;
+}
+
+#clinic-name-display.clinic-header::before {
+  content: "🏥 ";
+}
+
+.clinic-select-card {
+  max-width: 650px;
+  margin: 24px auto 0;
+  padding: 28px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f2f8ff, #ffffff);
+  border: 1px solid rgba(11, 116, 222, 0.14);
+  box-shadow: 0 10px 24px rgba(8, 63, 131, 0.08);
+}
+
+.clinic-select-title {
+  margin-bottom: 14px;
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+}
+
+.clinic-select-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#clinic-select {
+  min-width: 300px !important;
+  padding: 12px 14px !important;
+  font-size: 17px !important;
+  font-weight: 700;
+}
+
+.clinic-ok-btn {
+  padding: 12px 20px !important;
+  font-size: 16px !important;
+  background: linear-gradient(135deg, #1084ff, #086bd2) !important;
+}
+
+.clinic-dashboard {
+  margin-top: 2px;
+}
+
+.clinic-call-panel {
+  max-width: 720px;
+  margin: 0 auto 20px;
+  padding: 26px 22px 24px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.84)),
+    linear-gradient(135deg, rgba(11, 116, 222, 0.12), rgba(5, 168, 255, 0.06));
+  border: 1px solid rgba(11, 116, 222, 0.16);
+  box-shadow: 0 12px 30px rgba(8, 63, 131, 0.10);
+}
+
+.call-panel-label {
+  color: #0757b8;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.next-btn {
+  min-width: min(420px, 90%);
+  padding: 20px 34px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, #0b8cff 0%, #0757b8 100%) !important;
+  color: #ffffff !important;
+  font-size: clamp(22px, 3vw, 34px) !important;
+  font-weight: 900 !important;
+  box-shadow: 0 14px 30px rgba(7, 87, 184, 0.28) !important;
+}
+
+.call-panel-note {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.phongkham-stats-box {
+  display: flex;
+  justify-content: center;
+  gap: 16px !important;
+  margin: 18px auto 0 !important;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  flex: 1 1 170px;
+  max-width: 210px;
+  min-height: 128px;
+  padding: 16px 14px !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(11, 116, 222, 0.14) !important;
+  box-shadow: 0 10px 24px rgba(8, 63, 131, 0.10);
+}
+
+.stat-icon {
+  font-size: 22px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: var(--text-muted) !important;
+  font-size: 15px;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+}
+
+.stat-value {
+  margin-top: 8px !important;
+  color: var(--brand-blue-dark) !important;
+  font-size: clamp(30px, 4vw, 44px) !important;
+  font-weight: 900 !important;
+  line-height: 1;
+}
+
+.stat-called {
+  transform: translateY(-4px);
+  border-color: rgba(11, 116, 222, 0.28) !important;
+  box-shadow: 0 14px 30px rgba(8, 63, 131, 0.14);
+}
+
+.stat-called .stat-value {
+  color: #e02424 !important;
+  font-size: clamp(38px, 5vw, 58px) !important;
+}
+
+.called-section {
+  margin: 22px auto 0 !important;
+  padding: 16px 18px;
+  max-width: 420px;
+  border-radius: 18px;
+  background: #f5faff;
+  border: 1px dashed rgba(11, 116, 222, 0.28);
+}
+
+.called-section label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+#called-select {
+  min-width: 240px !important;
+  padding: 11px 14px !important;
+  font-size: 16px !important;
+  font-weight: 700;
+}
+
+.clinic-action-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+#top-right-buttons[style*="block"] {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.switch-clinic-btn,
+.clinic-logout-btn {
+  padding: 11px 24px !important;
+  border-radius: 14px !important;
+  font-size: 15px !important;
+}
+
+.switch-clinic-btn {
+  background: linear-gradient(135deg, #1084ff, #086bd2) !important;
+}
+
+.clinic-logout-btn {
+  background: linear-gradient(135deg, #ef3b4d, #c51f32) !important;
+}
+
+.app-copyright {
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  margin: 18px auto 0;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.80);
+  border: 1px solid rgba(11, 116, 222, 0.14);
+  color: #0757b8;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(8, 63, 131, 0.08);
+}
+
+@media (max-width: 760px) {
+  .container,
+  .login-box {
+    width: calc(100vw - 22px) !important;
+    padding: 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .app-update-marquee {
+    height: 36px;
+  }
+
+  .app-update-marquee span {
+    font-size: 13px;
+    animation-duration: 24s;
+  }
+
+  .clinic-select-row {
+    flex-direction: column;
+  }
+
+  #clinic-select,
+  #called-select {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .next-btn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .stat-box {
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .app-copyright {
+    max-width: calc(100vw - 18px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+  }
+}
+
+@media print {
+  #feature-update-banner,
+  .app-top-title,
+  #app-copyright {
+    display: none !important;
+  }
+}
+
+/* ===== Tinh chỉnh 22/06/2026: thu gọn giao diện phòng khám còn khoảng 75-80% ===== */
+.app-top-title {
+  margin: 10px auto 12px !important;
+}
+
+.app-top-kicker {
+  font-size: 13px !important;
+  letter-spacing: 0.8px !important;
+}
+
+.app-top-main {
+  font-size: clamp(24px, 3.2vw, 34px) !important;
+  line-height: 1.05 !important;
+}
+
+.clinic-container {
+  width: min(88vw, 800px) !important;
+  max-width: 800px !important;
+  min-height: auto !important;
+  margin: 14px auto 14px !important;
+  padding: 18px 22px 20px !important;
+}
+
+.clinic-setup-heading {
+  margin: 0 0 12px !important;
+  font-size: clamp(18px, 2.1vw, 24px) !important;
+}
+
+.clinic-title-wrap {
+  min-height: 48px !important;
+  margin-bottom: 6px !important;
+}
+
+#clinic-name-display.clinic-header {
+  padding: 10px 22px !important;
+  border-radius: 15px !important;
+  font-size: clamp(20px, 2.4vw, 28px) !important;
+  box-shadow: 0 8px 18px rgba(8, 88, 190, 0.20) !important;
+}
+
+.clinic-dashboard {
+  margin-top: 0 !important;
+}
+
+.clinic-call-panel {
+  max-width: 580px !important;
+  margin: 0 auto 14px !important;
+  padding: 18px 18px 16px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 20px rgba(8, 63, 131, 0.08) !important;
+}
+
+.call-panel-label {
+  font-size: 13px !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 0.55px !important;
+}
+
+.next-btn {
+  min-width: min(340px, 86%) !important;
+  padding: 14px 26px !important;
+  border-radius: 15px !important;
+  font-size: clamp(20px, 2.5vw, 28px) !important;
+  box-shadow: 0 10px 22px rgba(7, 87, 184, 0.22) !important;
+}
+
+.call-panel-note {
+  margin-top: 9px !important;
+  font-size: 12px !important;
+}
+
+.phongkham-stats-box {
+  gap: 12px !important;
+  margin: 12px auto 0 !important;
+}
+
+.stat-box {
+  flex: 0 1 150px !important;
+  max-width: 168px !important;
+  min-height: 104px !important;
+  padding: 12px 12px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 18px rgba(8, 63, 131, 0.08) !important;
+}
+
+.stat-icon {
+  font-size: 18px !important;
+  margin-bottom: 6px !important;
+}
+
+.stat-label {
+  font-size: 13px !important;
+  letter-spacing: 0.35px !important;
+}
+
+.stat-value {
+  margin-top: 6px !important;
+  font-size: clamp(26px, 3.2vw, 36px) !important;
+}
+
+.stat-called {
+  transform: translateY(-2px) !important;
+}
+
+.stat-called .stat-value {
+  font-size: clamp(34px, 4vw, 48px) !important;
+}
+
+.called-section {
+  max-width: 340px !important;
+  margin: 16px auto 0 !important;
+  padding: 12px 14px !important;
+  border-radius: 15px !important;
+}
+
+.called-section label {
+  margin-bottom: 6px !important;
+  font-size: 12px !important;
+}
+
+#called-select {
+  min-width: 220px !important;
+  padding: 9px 12px !important;
+  font-size: 14px !important;
+}
+
+.clinic-action-footer {
+  margin-top: 16px !important;
+}
+
+.switch-clinic-btn,
+.clinic-logout-btn {
+  padding: 9px 18px !important;
+  border-radius: 12px !important;
+  font-size: 13px !important;
+}
+
+.app-copyright {
+  margin-top: 10px !important;
+  padding: 7px 16px !important;
+  font-size: 14px !important;
+}
+
+@media (max-width: 760px) {
+  .clinic-container {
+    width: calc(100vw - 22px) !important;
+    padding: 16px !important;
+  }
+
+  .stat-box {
+    flex-basis: 100% !important;
+    max-width: none !important;
+  }
+}
+
+/* ===== Giao diện tài khoản phát số - dạng dashboard card 14 phòng khám ===== */
+body.phatso-mode {
+  min-height: 100vh;
+  background: #f6fbff !important;
+  text-align: left;
+  overflow-x: hidden;
+}
+
+body.phatso-mode #feature-update-banner,
+body.phatso-mode .app-top-title,
+body.phatso-mode > #app-copyright {
+  display: none !important;
+}
+
+body.phatso-mode #phatso-container.container {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #f6fbff !important;
+  display: flex !important;
+  overflow: hidden;
+}
+
+.phatso-sidebar {
+  width: 270px;
+  min-height: 100vh;
+  flex: 0 0 270px;
+  box-sizing: border-box;
+  padding: 28px 16px 24px;
+  background: linear-gradient(180deg, #076ee0 0%, #005bc1 45%, #004eb0 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-shadow: 10px 0 28px rgba(7, 62, 138, 0.14);
+}
+
+.phatso-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 8px 18px;
+}
+
+.phatso-brand-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #086bd2;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  box-shadow: 0 12px 22px rgba(0, 36, 88, 0.16);
+}
+
+.phatso-brand-text span,
+.phatso-brand-text strong {
+  display: block;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1.04;
+  letter-spacing: 0.2px;
+}
+
+.phatso-brand-text span {
+  font-weight: 700;
+}
+
+.phatso-brand-text strong {
+  margin-top: 3px;
+  font-weight: 950;
+}
+
+.phatso-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.phatso-menu-item {
+  width: 100%;
+  min-height: 54px;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  border: 0;
+  border-radius: 14px !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  font-size: 16px;
+  font-weight: 850;
+  text-align: left;
+  cursor: default;
+}
+
+.phatso-menu-item i {
+  width: 26px;
+  font-size: 21px;
+  text-align: center;
+}
+
+.phatso-menu-item.active {
+  background: linear-gradient(135deg, #ffffff, #eaf4ff) !important;
+  color: #0757b8 !important;
+  box-shadow: 0 10px 22px rgba(0, 34, 86, 0.12) !important;
+}
+
+.phatso-user-card {
+  margin-top: auto;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(0, 78, 176, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 18px rgba(0, 40, 96, 0.12);
+}
+
+.phatso-user-avatar {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0b74de;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+}
+
+.phatso-user-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.phatso-user-info strong,
+.phatso-user-info span {
+  display: block;
+  line-height: 1.25;
+}
+
+.phatso-user-info strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.phatso-user-info span {
+  margin-top: 3px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.82);
+}
+
+.phatso-logout-icon {
+  width: 34px;
+  height: 34px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.13) !important;
+  box-shadow: none !important;
+}
+
+.phatso-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 28px 36px 18px;
+  background: radial-gradient(circle at 70% 0%, rgba(226, 246, 255, 0.86), transparent 34%), #ffffff;
+  overflow-y: auto;
+}
+
+.phatso-topbar {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.10);
+  padding-bottom: 18px;
+}
+
+.phatso-topbar h1 {
+  margin: 0;
+  color: #073c82;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.phatso-topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  color: #183b68;
+}
+
+.phatso-bell {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: #6a7f9d;
+  font-size: 24px;
+}
+
+.phatso-bell span {
+  position: absolute;
+  top: -3px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ff1744;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.phatso-time {
+  padding-left: 16px;
+  border-left: 1px solid rgba(11, 116, 222, 0.18);
+  text-align: left;
+}
+
+.phatso-time strong,
+.phatso-time span {
+  display: block;
+  line-height: 1.2;
+}
+
+.phatso-time strong {
+  color: #0757b8;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.phatso-time span {
+  margin-top: 4px;
+  color: #526a86;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.phatso-logout-btn {
+  margin: 0 !important;
+  padding: 9px 14px !important;
+  border-radius: 13px !important;
+  background: linear-gradient(135deg, #ef3b4d, #c51f32) !important;
+  font-size: 13px !important;
+  white-space: nowrap;
+}
+
+.phatso-summary-card {
+  position: relative;
+  min-height: 112px;
+  margin: 18px 0 20px;
+  padding: 22px 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(11, 116, 222, 0.18);
+  background: linear-gradient(100deg, #eef8ff 0%, #ffffff 48%, #e7fff3 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 9px 24px rgba(8, 63, 131, 0.08);
+}
+
+.phatso-summary-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.phatso-summary-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #168cff, #0757d8);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  font-size: 17px;
+  font-weight: 950;
+  letter-spacing: 4px;
+  box-shadow: 0 12px 22px rgba(8, 88, 190, 0.22);
+}
+
+.phatso-summary-icon span {
+  display: block;
+  margin-left: 3px;
+}
+
+.phatso-summary-title {
+  color: #073c82;
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.phatso-summary-title strong {
+  color: #086bd2;
+  font-size: 1.15em;
+}
+
+.phatso-active-note {
+  margin-top: 12px;
+  color: #234b7a;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.phatso-active-note span {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: #0fae5a;
+  box-shadow: 0 0 0 5px rgba(15,174,90,0.10);
+}
+
+.phatso-hospital-illus {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 38%;
+  min-width: 340px;
+  pointer-events: none;
+}
+
+.phatso-hill {
+  position: absolute;
+  right: 20px;
+  bottom: -34px;
+  width: 310px;
+  height: 94px;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(135deg, #bdf0dc, #78d9bc);
+  opacity: 0.78;
+}
+
+.phatso-building {
+  position: absolute;
+  right: 110px;
+  bottom: 27px;
+  width: 98px;
+  height: 66px;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(180deg, #d6edff, #8bc6ff);
+  box-shadow: inset 0 -18px 0 rgba(42, 132, 220, 0.12);
+}
+
+.phatso-building::before,
+.phatso-building::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 28px;
+  top: 20px;
+  background: repeating-linear-gradient(to bottom, #ffffff 0 6px, transparent 6px 10px);
+  opacity: .92;
+}
+
+.phatso-building::before { left: 17px; }
+.phatso-building::after { right: 17px; }
+
+.phatso-building i {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #0b74de;
+  background: #ffffff;
+  border-radius: 999px;
+  font-size: 23px;
+}
+
+.phatso-building b {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 31px;
+  border-radius: 8px 8px 2px 2px;
+  background: #167ce3;
+}
+
+.phatso-cloud {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.88);
+}
+
+.phatso-cloud::before,
+.phatso-cloud::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+}
+
+.phatso-cloud::before { width: 22px; height: 22px; left: 8px; }
+.phatso-cloud::after { width: 30px; height: 30px; right: 8px; }
+.phatso-cloud.cloud-a { right: 268px; top: 33px; }
+.phatso-cloud.cloud-b { right: 48px; top: 43px; transform: scale(.85); }
+
+.phatso-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(218px, 1fr));
+  gap: 16px 18px;
+}
+
+.phatso-clinic-card {
+  box-sizing: border-box;
+  min-height: 158px;
+  padding: 15px 14px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(11, 116, 222, 0.11);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 9px 22px rgba(8, 63, 131, 0.07);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.phatso-clinic-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(11, 116, 222, 0.22);
+  box-shadow: 0 14px 26px rgba(8, 63, 131, 0.12);
+}
+
+.phatso-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+}
+
+.phatso-card-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #0b65d8;
+  background: #eef7ff;
+  font-size: 18px;
+}
+
+.phatso-icon-child { color: #0b65d8; }
+.phatso-icon-ear { color: #0c72cc; }
+.phatso-icon-eye { color: #055dc2; }
+.phatso-icon-maternity { color: #0c65c9; }
+.phatso-icon-surgery { color: #0b65d8; }
+
+.phatso-card-title-row h2 {
+  margin: 0;
+  color: #09285a;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 950;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.phatso-card-stats {
+  margin-top: 11px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.phatso-mini-stat {
+  min-height: 52px;
+  border-radius: 10px;
+  border: 1px solid rgba(11, 116, 222, 0.13);
+  display: grid;
+  place-items: center;
+  padding: 5px 7px;
+  box-sizing: border-box;
+}
+
+.phatso-mini-stat.issued {
+  background: linear-gradient(180deg, #f6fbff, #edf7ff);
+}
+
+.phatso-mini-stat.remaining {
+  background: linear-gradient(180deg, #fbfffc, #eefaf2);
+  border-color: rgba(15, 174, 90, 0.15);
+}
+
+.phatso-mini-stat span {
+  color: #153b69;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.phatso-mini-stat strong {
+  margin-top: 3px;
+  color: #0757b8;
+  font-size: 23px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.phatso-mini-stat.remaining strong {
+  color: #078546;
+}
+
+.phatso-card-actions {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.phatso-card-actions .btn-normal,
+.phatso-card-actions .btn-priority {
+  min-width: 0 !important;
+  width: 100%;
+  height: 34px;
+  margin: 0 !important;
+  padding: 0 10px !important;
+  border-radius: 9px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.phatso-card-actions .btn-priority i {
+  font-size: 15px;
+}
+
+.phatso-footer-note {
+  margin: 16px auto 0;
+  color: #7a8ca6;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 700;
+}
+
+@media (max-width: 1360px) {
+  .phatso-sidebar {
+    width: 238px;
+    flex-basis: 238px;
+  }
+  .phatso-main {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .phatso-card-grid {
+    grid-template-columns: repeat(3, minmax(218px, 1fr));
+  }
+}
+
+@media (max-width: 1050px) {
+  body.phatso-mode #phatso-container.container {
+    display: block !important;
+  }
+  .phatso-sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-basis: auto;
+    padding: 14px 14px;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .phatso-brand {
+    min-width: 180px;
+    padding: 0;
+  }
+  .phatso-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 22px;
+  }
+  .phatso-brand-text span,
+  .phatso-brand-text strong {
+    font-size: 16px;
+  }
+  .phatso-menu {
+    flex-direction: row;
+    min-width: max-content;
+  }
+  .phatso-menu-item {
+    min-height: 42px;
+    width: auto;
+    padding: 0 12px !important;
+    font-size: 13px;
+  }
+  .phatso-user-card {
+    margin-left: auto;
+    margin-top: 0;
+    min-width: 184px;
+  }
+  .phatso-main {
+    min-height: calc(100vh - 88px);
+  }
+  .phatso-topbar,
+  .phatso-summary-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .phatso-topbar-right {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .phatso-hospital-illus {
+    opacity: .42;
+  }
+  .phatso-card-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .phatso-main {
+    padding: 18px 14px 14px;
+  }
+  .phatso-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .phatso-summary-card {
+    padding: 18px;
+  }
+  .phatso-summary-left {
+    gap: 14px;
+  }
+  .phatso-summary-icon {
+    width: 54px;
+    height: 54px;
+    font-size: 14px;
+  }
+  .phatso-time,
+  .phatso-logout-btn {
+    display: none !important;
+  }
+}
+
+/* ===== Cập nhật 03/07/2026: tài khoản phát số toàn màn hình, bỏ thanh menu trái ===== */
+body.phatso-mode #phatso-container.container {
+  display: block !important;
+  overflow: auto;
+}
+
+body.phatso-mode .phatso-sidebar {
+  display: none !important;
+}
+
+.phatso-main-full {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+}
+
+body.phatso-mode .phatso-main {
+  padding: 28px clamp(22px, 3vw, 42px) 18px;
+}
+
+body.phatso-mode .phatso-topbar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.phatso-mode .phatso-card-grid {
+  grid-template-columns: repeat(4, minmax(218px, 1fr));
+}
+
+@media (max-width: 1180px) {
+  body.phatso-mode .phatso-card-grid {
+    grid-template-columns: repeat(3, minmax(218px, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  body.phatso-mode .phatso-card-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+  body.phatso-mode .phatso-topbar,
+  body.phatso-mode .phatso-summary-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  body.phatso-mode .phatso-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===== Cập nhật 03/07/2026: phát số gọn hơn + chuông thông báo hoạt động ===== */
+body.phatso-mode .phatso-topbar {
+  min-height: 52px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.12);
+}
+
+.phatso-screen-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #073c82;
+  text-align: left;
+}
+
+.phatso-screen-title i {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, #168cff, #0757d8);
+  box-shadow: 0 8px 18px rgba(8, 88, 190, 0.16);
+}
+
+.phatso-screen-title strong,
+.phatso-screen-title span {
+  display: block;
+  line-height: 1.2;
+}
+
+.phatso-screen-title strong {
+  font-size: clamp(22px, 2.15vw, 34px);
+  font-weight: 950;
+  letter-spacing: .4px;
+}
+
+.phatso-screen-title span {
+  margin-top: 4px;
+  color: #526a86;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.phatso-summary-card.phatso-summary-compact {
+  min-height: 74px;
+  margin: 16px 0 18px;
+  padding: 14px 20px;
+  justify-content: flex-start;
+  background: linear-gradient(100deg, #f2f9ff 0%, #ffffff 58%, #f0fff6 100%);
+}
+
+.phatso-summary-compact .phatso-summary-left {
+  gap: 14px;
+}
+
+.phatso-summary-compact .phatso-summary-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+
+.phatso-summary-info {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  text-align: left;
+}
+
+.phatso-summary-label {
+  width: 100%;
+  color: #254f80;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.phatso-summary-compact .phatso-summary-title {
+  color: #073c82;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.phatso-summary-compact .phatso-summary-title strong {
+  color: #086bd2;
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 950;
+  margin-right: 5px;
+}
+
+.phatso-summary-compact .phatso-summary-title span {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.phatso-summary-compact .phatso-active-note {
+  margin-top: 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.phatso-notification-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.phatso-bell {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px !important;
+  border: 1px solid rgba(11, 116, 222, 0.12) !important;
+  background: #ffffff !important;
+  color: #6a7f9d !important;
+  font-size: 21px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: 0 6px 16px rgba(8, 63, 131, 0.07);
+}
+
+.phatso-bell:hover {
+  color: #0757b8 !important;
+  background: #f2f8ff !important;
+}
+
+.phatso-bell span {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ff1744;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 18px;
+  box-sizing: border-box;
+}
+
+.phatso-bell span.is-empty {
+  display: none;
+}
+
+.phatso-notification-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -10px;
+  width: min(360px, calc(100vw - 24px));
+  max-height: 420px;
+  overflow: auto;
+  display: none;
+  z-index: 10000;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid rgba(11, 116, 222, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(8, 63, 131, 0.18);
+}
+
+.phatso-notification-panel.show {
+  display: block;
+}
+
+.phatso-notification-head {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.10);
+  background: linear-gradient(135deg, #f4f9ff, #ffffff);
+}
+
+.phatso-notification-head strong,
+.phatso-notification-head small {
+  display: block;
+}
+
+.phatso-notification-head strong {
+  color: #073c82;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.phatso-notification-head small {
+  margin-top: 4px;
+  color: #64758d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.phatso-notification-list {
+  padding: 8px;
+}
+
+.phatso-notification-item {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 9px;
+  padding: 10px 9px;
+  border-radius: 12px;
+  color: #153b69;
+}
+
+.phatso-notification-item + .phatso-notification-item {
+  margin-top: 4px;
+}
+
+.phatso-notification-item.is-unread {
+  background: #f1f8ff;
+}
+
+.phatso-notification-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: #0b74de;
+}
+
+.phatso-notification-item.warning .phatso-notification-dot { background: #f59e0b; }
+.phatso-notification-item.sync .phatso-notification-dot { background: #0fae5a; }
+
+.phatso-notification-item strong,
+.phatso-notification-item p,
+.phatso-notification-item span {
+  display: block;
+  margin: 0;
+}
+
+.phatso-notification-item strong {
+  color: #073c82;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.phatso-notification-item p {
+  margin-top: 4px;
+  color: #324b68;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.phatso-notification-item span {
+  margin-top: 5px;
+  color: #8190a3;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.phatso-notification-empty {
+  padding: 22px 16px;
+  text-align: center;
+  color: #64758d;
+}
+
+.phatso-notification-empty i {
+  display: block;
+  margin-bottom: 8px;
+  color: #8fa7c3;
+  font-size: 24px;
+}
+
+.phatso-notification-empty strong,
+.phatso-notification-empty span {
+  display: block;
+}
+
+.phatso-notification-empty strong {
+  color: #073c82;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.phatso-notification-empty span {
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+@media (max-width: 860px) {
+  body.phatso-mode .phatso-topbar {
+    gap: 12px;
+  }
+  .phatso-screen-title strong {
+    font-size: 22px;
+  }
+  .phatso-summary-info {
+    align-items: center;
+  }
+  .phatso-summary-compact .phatso-active-note {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .phatso-screen-title span {
+    display: none;
+  }
+  .phatso-notification-panel {
+    right: -120px;
+  }
+}
+
+/* =========================================================
+   PATCH 03/07/2026 - PHÁT SỐ: IN A5 NGANG + LỊCH SỬ IN LẠI
+   Chỉ áp dụng cho tài khoản phát số và khu vực in vé.
+========================================================= */
+.phatso-card-title-row {
+  align-items: flex-start;
+}
+
+.phatso-card-title-row h2 {
+  flex: 1;
+  min-width: 0;
+}
+
+.phatso-history-icon-btn {
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px;
+  margin: 0 0 0 auto !important;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  background: #eef7ff !important;
+  color: #0757b8 !important;
+  border: 1px solid rgba(11, 116, 222, 0.16) !important;
+  box-shadow: none !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: 14px !important;
+}
+
+.phatso-history-icon-btn:hover {
+  background: #dcefff !important;
+  color: #004ca6 !important;
+  transform: translateY(-1px);
+}
+
+.phatso-history-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.phatso-history-modal.show {
+  display: flex;
+}
+
+.phatso-history-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 23, 52, 0.46);
+  backdrop-filter: blur(2px);
+}
+
+.phatso-history-dialog {
+  position: relative;
+  width: min(620px, calc(100vw - 32px));
+  max-height: min(76vh, 720px);
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(11, 116, 222, 0.16);
+  box-shadow: 0 24px 70px rgba(3, 35, 84, 0.24);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.phatso-history-head {
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #f2f9ff, #ffffff);
+  border-bottom: 1px solid rgba(11, 116, 222, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.phatso-history-head strong,
+.phatso-history-head span {
+  display: block;
+  text-align: left;
+}
+
+.phatso-history-head strong {
+  color: #073c82;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.phatso-history-head span {
+  margin-top: 5px;
+  color: #59708e;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.phatso-history-close {
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  background: #eef7ff !important;
+  color: #0757b8 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  box-shadow: none !important;
+}
+
+.phatso-history-list {
+  padding: 12px 16px 16px;
+  overflow-y: auto;
+  display: grid;
+  gap: 10px;
+}
+
+.phatso-history-row {
+  min-height: 62px;
+  padding: 10px 12px;
+  border: 1px solid rgba(11, 116, 222, 0.12);
+  border-radius: 14px;
+  background: #fbfdff;
+  display: grid;
+  grid-template-columns: 82px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.phatso-history-num strong {
+  display: block;
+  color: #0757b8;
+  font-size: 24px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.phatso-history-num span {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e9f8ee;
+  color: #078546;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.phatso-history-meta {
+  min-width: 0;
+  text-align: left;
+}
+
+.phatso-history-meta span,
+.phatso-history-meta small {
+  display: block;
+}
+
+.phatso-history-meta span {
+  color: #143b70;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.phatso-history-meta small {
+  margin-top: 4px;
+  color: #68809f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.phatso-history-print-btn {
+  margin: 0 !important;
+  padding: 9px 12px !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: #0757b8 !important;
+  border: 1px solid rgba(11, 116, 222, 0.32) !important;
+  box-shadow: 0 5px 12px rgba(8, 63, 131, 0.06) !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  white-space: nowrap;
+}
+
+.phatso-history-print-btn:hover {
+  background: #0757b8 !important;
+  color: #ffffff !important;
+}
+
+.phatso-history-empty {
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  color: #68809f;
+  font-weight: 800;
+}
+
+/* Vé chỉ hiện khi in hoặc khi đang chuẩn bị in */
+body:not(.printing-ticket) #print-area {
+  display: none !important;
+}
+
+/* Xem lại vé trên màn hình trước khi gọi print: giữ ngoài luồng, không đè giao diện */
+body.printing-ticket #print-area {
+  display: block !important;
+  position: fixed;
+  left: -9999px;
+  top: 0;
+}
+
+@media print {
+  @page {
+    size: A5 landscape;
+    margin: 4mm;
+  }
+
+  html,
+  body {
+    width: 210mm !important;
+    height: 148mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  body.printing-ticket > *:not(#print-area) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.printing-ticket #print-area,
+  #print-area {
+    display: flex !important;
+    visibility: visible !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 202mm !important;
+    height: 140mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    z-index: 999999 !important;
+  }
+
+  #print-area .ticket-wrapper {
+    width: 190mm !important;
+    height: auto !important;
+    max-height: 126mm !important;
+    margin: 0 auto !important;
+    padding: 8mm 9mm !important;
+    box-sizing: border-box !important;
+    border: 1.8px dashed #000000 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    display: grid !important;
+    grid-template-columns: 36mm 1fr !important;
+    gap: 8mm !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #print-area .ticket-left {
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 0 7mm 0 0 !important;
+    border-right: 1px dashed #d7d7d7 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  #print-area .watermark-front {
+    width: 18mm !important;
+    height: 18mm !important;
+    object-fit: contain !important;
+    margin: 0 0 7mm 0 !important;
+    opacity: 1 !important;
+  }
+
+  #print-area #clinicNamePrint,
+  #print-area .clinic-title {
+    width: 100% !important;
+    margin: 0 0 7mm 0 !important;
+    color: #000000 !important;
+    font-size: 15pt !important;
+    line-height: 1.12 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    word-break: break-word !important;
+  }
+
+  #print-area #ticketTypePrint,
+  #print-area .ticket-type {
+    width: 100% !important;
+    margin: 0 0 2mm 0 !important;
+    color: #000000 !important;
+    font-size: 15pt !important;
+    line-height: 1.08 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+  }
+
+  #print-area h1#ticketNumberPrint {
+    width: 100% !important;
+    margin: 0 0 4mm 0 !important;
+    color: #000000 !important;
+    font-size: 48pt !important;
+    line-height: 0.96 !important;
+    letter-spacing: 0 !important;
+    font-weight: 900 !important;
+  }
+
+  #print-area .print-time {
+    margin: 0 0 2mm 0 !important;
+    color: #000000 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    white-space: pre-line !important;
+  }
+
+  #print-area #waitingMessage {
+    margin: 0 !important;
+    color: #000000 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.15 !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+  }
+
+  #print-area .ticket-right {
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    font-family: Arial, sans-serif !important;
+    overflow: hidden !important;
+  }
+
+  #print-area .ticket-right h3 {
+    margin: 0 0 6mm 0 !important;
+    color: #000000 !important;
+    font-size: 21pt !important;
+    line-height: 1.02 !important;
+    font-weight: 900 !important;
+  }
+
+  #print-area #highlight-service {
+    max-height: 92mm !important;
+    overflow: hidden !important;
+    color: #000000 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.28 !important;
+    font-family: Arial, sans-serif !important;
+  }
+
+  #print-area #highlight-service p,
+  #print-area #highlight-service div,
+  #print-area #highlight-service li {
+    margin-top: 0 !important;
+    margin-bottom: 3mm !important;
+  }
+
+  #print-area #highlight-service ul,
+  #print-area #highlight-service ol {
+    margin: 0 0 0 5mm !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .phatso-history-row {
+    grid-template-columns: 70px 1fr;
+  }
+  .phatso-history-print-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+/* ===== PHATSO 03/07/2026: tổng quan gọn + bỏ ghi chú dưới tiêu đề ===== */
+body.phatso-mode .phatso-screen-title span {
+  display: none !important;
+}
+
+body.phatso-mode .phatso-topbar {
+  min-height: 46px !important;
+  padding-bottom: 12px !important;
+}
+
+body.phatso-mode .phatso-summary-minimal {
+  width: fit-content !important;
+  min-width: 270px !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  margin: 12px 0 16px !important;
+  padding: 10px 16px !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  box-shadow: 0 5px 14px rgba(8, 63, 131, 0.06) !important;
+  overflow: visible !important;
+}
+
+body.phatso-mode .phatso-summary-minimal .phatso-summary-info {
+  display: block !important;
+  min-width: 0 !important;
+}
+
+body.phatso-mode .phatso-summary-row {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: flex-start !important;
+  gap: 7px !important;
+  white-space: nowrap !important;
+}
+
+body.phatso-mode .phatso-summary-minimal .phatso-summary-label {
+  color: #234b7a !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+}
+
+body.phatso-mode .phatso-summary-number {
+  color: #086bd2 !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  letter-spacing: .2px !important;
+}
+
+body.phatso-mode .phatso-summary-unit {
+  color: #073c82 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+body.phatso-mode .phatso-summary-minimal .phatso-active-note {
+  margin-top: 5px !important;
+  color: #315a88 !important;
+  font-size: 12.5px !important;
+  line-height: 1.1 !important;
+  font-weight: 800 !important;
+}
+
+body.phatso-mode .phatso-summary-minimal .phatso-active-note span {
+  width: 8px !important;
+  height: 8px !important;
+  margin-right: 6px !important;
+  box-shadow: 0 0 0 4px rgba(15,174,90,0.10) !important;
+}
+
+@media (max-width: 760px) {
+  body.phatso-mode .phatso-summary-minimal {
+    width: 100% !important;
+  }
+}
+
+/* =========================================================
+   PATCH 03/07/2026 - ADMIN: GIAO DIỆN QUẢN TRỊ HIỆN ĐẠI
+   Chỉ tối ưu màn hình tài khoản admin, giữ nguyên chức năng.
+========================================================= */
+body.admin-mode {
+  min-height: 100vh;
+  background: #f6fbff !important;
+  text-align: left;
+  overflow-x: hidden;
+}
+
+body.admin-mode #feature-update-banner,
+body.admin-mode .app-top-title,
+body.admin-mode > #app-copyright {
+  display: none !important;
+}
+
+body.admin-mode #admin-container.container {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #f6fbff !important;
+  overflow: auto;
+}
+
+.admin-main {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24px clamp(20px, 3vw, 42px) 22px;
+  background: radial-gradient(circle at 75% 0%, rgba(226, 246, 255, 0.9), transparent 34%), #ffffff;
+}
+
+.admin-topbar {
+  min-height: 56px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.admin-screen-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #073c82;
+}
+
+.admin-screen-title > i {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #168cff, #0757d8);
+  box-shadow: 0 8px 18px rgba(8, 88, 190, 0.16);
+  font-size: 18px;
+}
+
+.admin-screen-title strong,
+.admin-screen-title span {
+  display: block;
+  line-height: 1.2;
+}
+
+.admin-screen-title strong {
+  font-size: clamp(24px, 2.25vw, 36px);
+  font-weight: 950;
+  letter-spacing: .35px;
+  text-transform: uppercase;
+}
+
+.admin-screen-title span {
+  margin-top: 4px;
+  color: #526a86;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-time {
+  padding-left: 14px;
+  border-left: 1px solid rgba(11, 116, 222, 0.16);
+  color: #173e6d;
+}
+
+.admin-time strong,
+.admin-time span {
+  display: block;
+  line-height: 1.2;
+}
+
+.admin-time strong {
+  color: #0757b8;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.admin-time span {
+  margin-top: 3px;
+  color: #526a86;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.admin-logout-btn,
+.admin-save-btn,
+.admin-reset-btn,
+.admin-add-btn {
+  height: 38px;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  border-radius: 13px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 950 !important;
+  box-shadow: 0 8px 18px rgba(8, 63, 131, 0.10) !important;
+  white-space: nowrap;
+}
+
+.admin-logout-btn {
+  background: linear-gradient(135deg, #ef3b4d, #c51f32) !important;
+}
+
+.admin-save-btn,
+.admin-add-btn {
+  background: linear-gradient(135deg, #1084ff, #086bd2) !important;
+}
+
+.admin-reset-btn {
+  background: linear-gradient(135deg, #ffb020, #f08a00) !important;
+}
+
+.admin-summary-grid {
+  margin: 16px 0 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.admin-summary-card {
+  min-height: 82px;
+  padding: 15px 16px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  border: 1px solid rgba(11, 116, 222, 0.13);
+  background: linear-gradient(135deg, #f2f9ff, #ffffff);
+  box-shadow: 0 9px 22px rgba(8, 63, 131, 0.07);
+  display: grid;
+  align-content: center;
+  gap: 6px;
+}
+
+.admin-summary-card span {
+  color: #254f80;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.admin-summary-card strong {
+  color: #0757b8;
+  font-size: clamp(26px, 2.25vw, 38px);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.admin-panel {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(11, 116, 222, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 28px rgba(8, 63, 131, 0.08);
+}
+
+.admin-panel-head {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-panel-head h3,
+.admin-panel-head p {
+  margin: 0;
+  text-align: left;
+}
+
+.admin-panel-head h3 {
+  color: #073c82;
+  font-size: 20px;
+  font-weight: 950;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.admin-panel-head p {
+  margin-top: 5px;
+  color: #5d7190;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-panel-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(11, 116, 222, 0.10);
+}
+
+body.admin-mode #admin-clinic-list {
+  width: 100%;
+  min-width: 840px;
+  margin: 0 !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: #ffffff;
+}
+
+body.admin-mode #admin-clinic-list th {
+  background: linear-gradient(135deg, #0b74de, #0757b8) !important;
+  color: #ffffff !important;
+  padding: 14px 12px !important;
+  font-size: 13px !important;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+body.admin-mode #admin-clinic-list td {
+  padding: 9px 12px !important;
+  border-bottom: 1px solid rgba(11, 116, 222, 0.10) !important;
+  vertical-align: middle;
+  background: transparent !important;
+}
+
+body.admin-mode #admin-clinic-list tbody tr:nth-child(odd) {
+  background: #ffffff !important;
+}
+
+body.admin-mode #admin-clinic-list tbody tr:nth-child(even) {
+  background: #f4f9ff !important;
+}
+
+body.admin-mode #admin-clinic-list tbody tr:hover {
+  background: #e9f4ff !important;
+}
+
+body.admin-mode .admin-input-text,
+body.admin-mode .admin-input-number {
+  height: 38px !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 13px !important;
+  border: 1px solid rgba(11, 116, 222, 0.20) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #10233f;
+  font-size: 14px !important;
+  font-weight: 750;
+  box-shadow: 0 2px 8px rgba(8, 63, 131, 0.05) inset;
+}
+
+body.admin-mode .admin-input-text {
+  width: min(100%, 520px) !important;
+}
+
+body.admin-mode .admin-input-number {
+  width: 120px !important;
+  text-align: center;
+}
+
+.admin-delete-btn {
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  background: #fff2f3 !important;
+  color: #cf2d3e !important;
+  border: 1px solid rgba(207, 45, 62, 0.18) !important;
+  box-shadow: none !important;
+  font-size: 15px !important;
+}
+
+.admin-delete-btn:hover {
+  background: #cf2d3e !important;
+  color: #ffffff !important;
+}
+
+.admin-issued-pill {
+  display: inline-grid;
+  min-width: 84px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  background: #f1f8ff;
+  border: 1px solid rgba(11, 116, 222, 0.13);
+  text-align: center;
+  gap: 2px;
+}
+
+.admin-issued-pill strong {
+  color: #0757b8;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.admin-issued-pill span {
+  color: #607997;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.admin-add-card {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f2f9ff, #ffffff);
+  border: 1px dashed rgba(11, 116, 222, 0.25);
+  display: grid;
+  grid-template-columns: auto minmax(240px, 1fr) 140px auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-add-title {
+  color: #073c82;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+body.admin-mode .admin-add-card .admin-input-text,
+body.admin-mode .admin-add-card .admin-input-number {
+  width: 100% !important;
+}
+
+.admin-highlight-panel .ql-toolbar.ql-snow,
+.admin-highlight-panel .ql-container.ql-snow {
+  border-color: rgba(11, 116, 222, 0.16) !important;
+}
+
+.admin-highlight-panel .ql-toolbar.ql-snow {
+  border-radius: 14px 14px 0 0;
+  background: #f5faff;
+}
+
+.admin-highlight-panel .ql-container.ql-snow {
+  border-radius: 0 0 14px 14px;
+  font-size: 15px;
+}
+
+@media (max-width: 980px) {
+  .admin-topbar,
+  .admin-panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-topbar-right,
+  .admin-panel-actions {
+    justify-content: flex-start;
+  }
+
+  .admin-summary-grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  .admin-add-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-main {
+    padding: 18px 12px;
+  }
+
+  .admin-screen-title span,
+  .admin-time {
+    display: none;
+  }
+
+  .admin-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   PATCH 03/07/2026 - ADMIN: PHÒNG KHÁM DẠNG CARD GIỐNG PHÁT SỐ
+   Mỗi phòng khám là một ô riêng, giữ nguyên class input để không đổi logic lưu.
+========================================================= */
+body.admin-mode .admin-table-wrap,
+body.admin-mode #admin-clinic-list {
+  display: none !important;
+}
+
+.admin-clinic-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.admin-clinic-card {
+  min-height: 168px;
+  padding: 14px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  border: 1px solid rgba(11, 116, 222, 0.13);
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(8, 63, 131, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.admin-clinic-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(11, 116, 222, 0.24);
+  box-shadow: 0 14px 28px rgba(8, 63, 131, 0.10);
+}
+
+.admin-clinic-card-head {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
+  align-items: start;
+  gap: 10px;
+}
+
+.admin-clinic-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: #076bd9;
+  background: #eef7ff;
+  border: 1px solid rgba(11, 116, 222, 0.10);
+  font-size: 16px;
+}
+
+.admin-clinic-title-wrap {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.admin-clinic-title-wrap label {
+  color: #073c82;
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+body.admin-mode .admin-card-name-input {
+  width: 100% !important;
+  height: 39px !important;
+  border-radius: 13px !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}
+
+.admin-card-delete-btn {
+  align-self: start;
+  justify-self: end;
+}
+
+.admin-card-stats {
+  display: grid;
+  grid-template-columns: minmax(98px, 1.2fr) minmax(74px, 0.9fr) minmax(74px, 0.9fr);
+  gap: 9px;
+  margin-top: auto;
+}
+
+.admin-card-stat {
+  min-height: 66px;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 13px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  border: 1px solid rgba(11, 116, 222, 0.10);
+}
+
+.admin-card-stat span {
+  color: #294e78;
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.admin-card-stat strong {
+  color: #0757b8;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.admin-card-stat-limit {
+  background: #f0f8ff;
+}
+
+.admin-card-stat-issued {
+  background: #eef7ff;
+}
+
+.admin-card-stat-remaining {
+  background: #f0fbf4;
+  border-color: rgba(0, 145, 75, 0.13);
+}
+
+.admin-card-stat-remaining strong {
+  color: #02804b;
+}
+
+body.admin-mode .admin-card-limit-input {
+  width: 100% !important;
+  height: 32px !important;
+  padding: 0 8px !important;
+  border-radius: 10px !important;
+  font-size: 17px !important;
+  font-weight: 950 !important;
+  color: #0757b8;
+  background: #ffffff !important;
+}
+
+@media (max-width: 1280px) {
+  .admin-clinic-card-grid {
+    grid-template-columns: repeat(3, minmax(230px, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .admin-clinic-card-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-clinic-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   PATCH 03/07/2026 - GỌN ADMIN + HIỆU ỨNG CARD PHÁT SỐ/ADMIN
+   Bỏ khối thống kê/thêm phòng ở admin bằng HTML; đoạn này chỉ làm card sinh động hơn.
+========================================================= */
+body.admin-mode .admin-summary-grid,
+body.admin-mode .admin-add-card {
+  display: none !important;
+}
+
+body.admin-mode .admin-panel {
+  margin-top: 18px;
+}
+
+.phatso-clinic-card,
+.admin-clinic-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  animation: clinicCardIn 0.38s ease both;
+  will-change: transform, box-shadow, border-color;
+}
+
+.phatso-clinic-card::after,
+.admin-clinic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(24, 144, 255, 0.13), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(246,251,255,0.96));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.phatso-clinic-card::before,
+.admin-clinic-card::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #168cff, #00b884, #ff9d00);
+  opacity: 0;
+  transform: scaleX(0.18);
+  transform-origin: left center;
+  transition: opacity 0.2s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+
+.phatso-clinic-card:hover,
+.admin-clinic-card:hover,
+.phatso-clinic-card:focus-within,
+.admin-clinic-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(11, 116, 222, 0.32) !important;
+  box-shadow: 0 16px 34px rgba(8, 63, 131, 0.14) !important;
+}
+
+.phatso-clinic-card:hover::after,
+.admin-clinic-card:hover::after,
+.phatso-clinic-card:focus-within::after,
+.admin-clinic-card:focus-within::after {
+  opacity: 1;
+}
+
+.phatso-clinic-card:hover::before,
+.admin-clinic-card:hover::before,
+.phatso-clinic-card:focus-within::before,
+.admin-clinic-card:focus-within::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.phatso-clinic-card:hover .phatso-card-icon,
+.admin-clinic-card:hover .admin-clinic-icon,
+.phatso-clinic-card:focus-within .phatso-card-icon,
+.admin-clinic-card:focus-within .admin-clinic-icon {
+  transform: scale(1.06) rotate(-3deg);
+  box-shadow: 0 8px 18px rgba(8, 111, 219, 0.16);
+}
+
+.phatso-card-icon,
+.admin-clinic-icon {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.phatso-card-actions .btn-normal,
+.phatso-card-actions .btn-priority,
+.admin-save-btn,
+.admin-reset-btn,
+.admin-logout-btn {
+  transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+}
+
+.phatso-card-actions .btn-normal:hover,
+.phatso-card-actions .btn-priority:hover,
+.admin-save-btn:hover,
+.admin-reset-btn:hover,
+.admin-logout-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.phatso-clinic-card:nth-child(1), .admin-clinic-card:nth-child(1) { animation-delay: 0.01s; }
+.phatso-clinic-card:nth-child(2), .admin-clinic-card:nth-child(2) { animation-delay: 0.03s; }
+.phatso-clinic-card:nth-child(3), .admin-clinic-card:nth-child(3) { animation-delay: 0.05s; }
+.phatso-clinic-card:nth-child(4), .admin-clinic-card:nth-child(4) { animation-delay: 0.07s; }
+.phatso-clinic-card:nth-child(5), .admin-clinic-card:nth-child(5) { animation-delay: 0.09s; }
+.phatso-clinic-card:nth-child(6), .admin-clinic-card:nth-child(6) { animation-delay: 0.11s; }
+.phatso-clinic-card:nth-child(7), .admin-clinic-card:nth-child(7) { animation-delay: 0.13s; }
+.phatso-clinic-card:nth-child(8), .admin-clinic-card:nth-child(8) { animation-delay: 0.15s; }
+.phatso-clinic-card:nth-child(n+9), .admin-clinic-card:nth-child(n+9) { animation-delay: 0.17s; }
+
+@keyframes clinicCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phatso-clinic-card,
+  .admin-clinic-card,
+  .phatso-clinic-card::before,
+  .admin-clinic-card::before,
+  .phatso-clinic-card::after,
+  .admin-clinic-card::after,
+  .phatso-card-icon,
+  .admin-clinic-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Bảo đảm lớp hiệu ứng nằm dưới nội dung card, không che chữ/nút. */
+.phatso-clinic-card > *,
+.admin-clinic-card > * {
+  position: relative;
+  z-index: 1;
+}
+.phatso-clinic-card::after,
+.admin-clinic-card::after {
+  z-index: 0;
+}
+.phatso-clinic-card::before,
+.admin-clinic-card::before {
+  z-index: 2;
+}
+
+/* =========================================================
+   PATCH 03/07/2026 - ADMIN: BỎ TIÊU ĐỀ "TÊN PHÒNG KHÁM" + HOVER MÀU NHẠT + ENTER ĐĂNG NHẬP
+========================================================= */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Ẩn toàn bộ nhãn thừa "01. Tên phòng khám" trên card admin. */
+.admin-clinic-title-wrap > label:not(.sr-only) {
+  display: none !important;
+}
+
+.admin-clinic-order {
+  width: fit-content;
+  min-width: 34px;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef7ff;
+  border: 1px solid rgba(11, 116, 222, 0.14);
+  color: #0757b8;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(8, 63, 131, 0.06);
+}
+
+body.admin-mode .admin-card-name-input {
+  margin-top: 0 !important;
+}
+
+/* Màu hover nhạt riêng theo từng nhóm card, áp dụng cho cả tài khoản phát số và admin. */
+.phatso-clinic-card,
+.admin-clinic-card {
+  --clinic-hover-bg: #f2f8ff;
+  --clinic-hover-glow: rgba(24, 144, 255, 0.16);
+  --clinic-accent: #168cff;
+}
+
+.phatso-clinic-card:nth-child(6n+1), .admin-clinic-card:nth-child(6n+1) {
+  --clinic-hover-bg: #eef7ff;
+  --clinic-hover-glow: rgba(24, 144, 255, 0.20);
+  --clinic-accent: #168cff;
+}
+.phatso-clinic-card:nth-child(6n+2), .admin-clinic-card:nth-child(6n+2) {
+  --clinic-hover-bg: #f0fbf4;
+  --clinic-hover-glow: rgba(0, 184, 132, 0.18);
+  --clinic-accent: #00a86b;
+}
+.phatso-clinic-card:nth-child(6n+3), .admin-clinic-card:nth-child(6n+3) {
+  --clinic-hover-bg: #fff8ec;
+  --clinic-hover-glow: rgba(255, 157, 0, 0.18);
+  --clinic-accent: #ff9d00;
+}
+.phatso-clinic-card:nth-child(6n+4), .admin-clinic-card:nth-child(6n+4) {
+  --clinic-hover-bg: #f4f1ff;
+  --clinic-hover-glow: rgba(112, 88, 255, 0.17);
+  --clinic-accent: #7058ff;
+}
+.phatso-clinic-card:nth-child(6n+5), .admin-clinic-card:nth-child(6n+5) {
+  --clinic-hover-bg: #effcff;
+  --clinic-hover-glow: rgba(0, 178, 202, 0.16);
+  --clinic-accent: #00a9c7;
+}
+.phatso-clinic-card:nth-child(6n), .admin-clinic-card:nth-child(6n) {
+  --clinic-hover-bg: #fff3f6;
+  --clinic-hover-glow: rgba(235, 80, 120, 0.14);
+  --clinic-accent: #eb5078;
+}
+
+.phatso-clinic-card:hover,
+.admin-clinic-card:hover,
+.phatso-clinic-card:focus-within,
+.admin-clinic-card:focus-within {
+  background: var(--clinic-hover-bg) !important;
+}
+
+.phatso-clinic-card::after,
+.admin-clinic-card::after {
+  background:
+    radial-gradient(circle at 18% 0%, var(--clinic-hover-glow), transparent 34%),
+    linear-gradient(135deg, var(--clinic-hover-bg), rgba(255,255,255,0.94)) !important;
+}
+
+.phatso-clinic-card::before,
+.admin-clinic-card::before {
+  background: linear-gradient(90deg, var(--clinic-accent), #00b884, #ff9d00) !important;
+}
+
+.phatso-clinic-card:hover .phatso-card-icon,
+.admin-clinic-card:hover .admin-clinic-icon,
+.phatso-clinic-card:focus-within .phatso-card-icon,
+.admin-clinic-card:focus-within .admin-clinic-icon {
+  background: #ffffff !important;
+  color: var(--clinic-accent) !important;
+}
+
+
+/* =========================================================
+   PATCH 03/07/2026 - NỀN NHẸ CHO ADMIN/PHÁT SỐ + BỎ THỐNG KÊ PHÒNG HOẠT ĐỘNG
+   Chỉ chỉnh giao diện, giữ nguyên các chức năng đang ổn định.
+========================================================= */
+body.phatso-mode,
+body.admin-mode {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(211, 238, 255, 0.72), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(218, 255, 235, 0.62), transparent 30%),
+    linear-gradient(180deg, #f2f9ff 0%, #eef7ff 48%, #f7fbff 100%) !important;
+}
+
+body.phatso-mode #phatso-container.container,
+body.admin-mode #admin-container.container {
+  background: transparent !important;
+}
+
+body.phatso-mode .phatso-main,
+body.admin-mode .admin-main {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,255,255,0.54)),
+    radial-gradient(circle at 80% 4%, rgba(203, 238, 255, 0.72), transparent 30%),
+    radial-gradient(circle at 7% 30%, rgba(220, 246, 255, 0.58), transparent 28%),
+    #f2f9ff !important;
+}
+
+body.admin-mode .admin-panel {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(6px);
+}
+
+body.admin-mode .admin-clinic-panel {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.86), rgba(247,252,255,0.88)),
+    #f3f9ff !important;
+}
+
+body.phatso-mode .phatso-summary-minimal {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border-color: rgba(11, 116, 222, 0.15) !important;
+  backdrop-filter: blur(6px);
+}
+
+/* Bỏ dòng "14 phòng khám đang hoạt động" nếu còn sót trong DOM/cache cũ. */
+body.phatso-mode .phatso-summary-minimal .phatso-active-note {
+  display: none !important;
+}
+
+/* Card có màu nền rất nhẹ ngay cả khi chưa rê chuột để dễ phân biệt trên màn hình rộng. */
+.phatso-clinic-card,
+.admin-clinic-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(248,252,255,0.96)) !important;
+}
+
+.phatso-clinic-card:nth-child(6n+1), .admin-clinic-card:nth-child(6n+1) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(240,248,255,0.98)) !important;
+}
+.phatso-clinic-card:nth-child(6n+2), .admin-clinic-card:nth-child(6n+2) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(242,252,246,0.98)) !important;
+}
+.phatso-clinic-card:nth-child(6n+3), .admin-clinic-card:nth-child(6n+3) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,249,239,0.98)) !important;
+}
+.phatso-clinic-card:nth-child(6n+4), .admin-clinic-card:nth-child(6n+4) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,244,255,0.98)) !important;
+}
+.phatso-clinic-card:nth-child(6n+5), .admin-clinic-card:nth-child(6n+5) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(239,252,255,0.98)) !important;
+}
+.phatso-clinic-card:nth-child(6n), .admin-clinic-card:nth-child(6n) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,245,248,0.98)) !important;
+}
