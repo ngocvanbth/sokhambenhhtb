@@ -1444,6 +1444,90 @@ const audioTrimCache = new WeakMap();
 let callAudioContext = null;
 let audioWarmupStarted = false;
 
+// ===== FIX ĐƯỜNG DẪN ÂM THANH TRÊN VERCEL =====
+// Chỉ xử lý phần phát âm thanh. Không ảnh hưởng Firebase, cấp số, gọi số, in vé hay phân quyền.
+// Trên web, ưu tiên tải file tại /audio/<tên-file>.mp3 để tránh lỗi 404 do thiếu thư mục audio.
+// Vẫn giữ dự phòng đường dẫn cũ để chạy local/offline không bị hỏng.
+const AUDIO_ASSET_VERSION = "20260706-audio-path-fix";
+const AUDIO_WEB_BASE_FOLDERS = ["audio", "Audio", "assets/audio", "public/audio"];
+
+function addAudioCacheVersion(url) {
+    if (!url) return url;
+    if (window.location.protocol === "file:") return url; // không thêm query khi mở offline
+    if (/^(data:|blob:)/i.test(url)) return url;
+    return url + (url.includes("?") ? "&" : "?") + "v=" + AUDIO_ASSET_VERSION;
+}
+
+function getAudioFileName(file) {
+    const raw = String(file || "").trim().replace(/\\/g, "/");
+    const clean = raw.split("#")[0].split("?")[0];
+    const parts = clean.split("/").filter(Boolean);
+    const name = parts.length ? parts[parts.length - 1] : clean;
+    try {
+        return decodeURIComponent(name);
+    } catch (error) {
+        return name;
+    }
+}
+
+function uniqueAudioUrls(list) {
+    const seen = new Set();
+    const result = [];
+    list.forEach(item => {
+        if (!item) return;
+        const value = String(item).trim();
+        if (!value || seen.has(value)) return;
+        seen.add(value);
+        result.push(value);
+    });
+    return result;
+}
+
+function buildAudioUrlCandidates(file) {
+    const raw = String(file || "").trim().replace(/\\/g, "/");
+    if (!raw) return [];
+    if (/^(data:|blob:|https?:\/\/)/i.test(raw)) return [addAudioCacheVersion(raw)];
+
+    const fileName = getAudioFileName(raw);
+    const exact = raw.replace(/^\.\//, "");
+    const relativeCandidates = [];
+
+    // Mở offline: ưu tiên đúng thư mục hiện tại của index.html.
+    if (window.location.protocol === "file:") {
+        relativeCandidates.push(exact);
+        if (!exact.startsWith("audio/")) relativeCandidates.push(`audio/${fileName}`);
+        relativeCandidates.push(fileName);
+        return uniqueAudioUrls(relativeCandidates);
+    }
+
+    const origin = window.location.origin;
+    const absoluteCandidates = [];
+
+    // Khi deploy Vercel: ưu tiên /audio/<file>, vì thư mục âm thanh đang nằm trong /audio.
+    AUDIO_WEB_BASE_FOLDERS.forEach(folder => {
+        absoluteCandidates.push(`${origin}/${folder}/${fileName}`);
+    });
+
+    // Dự phòng nếu Vercel đang deploy ở thư mục con hoặc trước đây từng gọi đường dẫn tương đối.
+    relativeCandidates.push(exact);
+    if (!exact.startsWith("audio/")) relativeCandidates.push(`audio/${fileName}`);
+    relativeCandidates.push(`./audio/${fileName}`);
+    relativeCandidates.push(fileName);
+    relativeCandidates.push(`./${fileName}`);
+    absoluteCandidates.push(`${origin}/${fileName}`);
+
+    return uniqueAudioUrls([...absoluteCandidates, ...relativeCandidates].map(addAudioCacheVersion));
+}
+
+function expandAudioCandidateList(item) {
+    const rawCandidates = Array.isArray(item) ? item : [item];
+    const expanded = [];
+    rawCandidates.forEach(candidate => {
+        buildAudioUrlCandidates(candidate).forEach(url => expanded.push(url));
+    });
+    return uniqueAudioUrls(expanded);
+}
+
 function getCallAudioContext() {
     if (!AUDIO_WEB_ENGINE_ENABLED) return null;
     if (!callAudioContext) {
@@ -1540,13 +1624,13 @@ function getTrimPoints(buffer) {
 }
 
 async function resolveAudioItem(item) {
-    const candidates = Array.isArray(item) ? item : [item];
+    const candidates = expandAudioCandidateList(item);
     for (const file of candidates) {
         try {
             const buffer = await loadAudioBuffer(file);
             return { file, buffer };
         } catch (error) {
-            // Thử candidate kế tiếp, ví dụ file không dấu rồi tới file có dấu.
+            // Thử candidate kế tiếp, ví dụ /audio/file.mp3 rồi tới đường dẫn dự phòng.
         }
     }
     console.warn("Không phát được file âm thanh:", candidates);
@@ -1618,7 +1702,10 @@ function warmupAudioFilesForClinic(clinicName) {
     ]);
 
     // Chỉ preload các file có khả năng dùng ngay, tránh bắn hàng trăm request MP3 lên Vercel.
-    files.forEach(file => loadAudioBuffer(file).catch(() => {}));
+    // Mỗi file chỉ thử vài đường dẫn ưu tiên, không preload tràn lan.
+    files.forEach(file => {
+        expandAudioCandidateList(file).slice(0, 2).forEach(url => loadAudioBuffer(url).catch(() => {}));
+    });
 }
 
 function warmupAudioFilesOnce() {
@@ -1694,7 +1781,7 @@ function playSingleAudioFile(file) {
 }
 
 async function playAudioItem(item) {
-    const candidates = Array.isArray(item) ? item : [item];
+    const candidates = expandAudioCandidateList(item);
 
     for (const file of candidates) {
         const ok = await playSingleAudioFile(file);
